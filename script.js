@@ -1,9 +1,7 @@
 // Canvas
 const { body } = document;
-
 const canvas = document.createElement('canvas');
-const context = canvas.getContext('2d')
-
+const context = canvas.getContext('2d');
 const width = 500;
 const height = 700;
 const screenWidth = window.screen.width;
@@ -45,7 +43,7 @@ if (isMobile.matches) {
 // Score
 let playerScore = 0;
 let computerScore = 0;
-const winningScore = 5;
+const winningScore = 7;
 let isGameOver = true;
 let isNewGame = true;
 
@@ -56,12 +54,11 @@ function renderCanvas() {
   context.fillRect(0, 0, width, height);
 
   // Paddle Color
+  context.fillStyle = 'white';
 
-  context.fillStyle = 'green';
   // Player Paddle (Bottom)
   context.fillRect(paddleBottomX, height - 20, paddleWidth, paddleHeight);
 
-  context.fillStyle = 'red';
   // Computer Paddle (Top)
   context.fillRect(paddleTopX, 10, paddleWidth, paddleHeight);
 
@@ -197,7 +194,7 @@ function gameOver() {
   if (playerScore === winningScore || computerScore === winningScore) {
     isGameOver = true;
     // Set Winner
-    const winner = playerScore === winningScore ? 'Player' : 'Computer';
+    const winner = playerScore === winningScore ? 'Player 1' : 'Computer';
     showGameOverEl(winner);
   }
 }
@@ -210,7 +207,6 @@ function animate() {
   computerAI();
   gameOver();
   if (!isGameOver) {
-
     window.requestAnimationFrame(animate);
   }
 }
@@ -220,7 +216,6 @@ function startGame() {
   if (isGameOver && !isNewGame) {
     body.removeChild(gameOverEl);
     canvas.hidden = false;
-
   }
   isGameOver = false;
   isNewGame = false;
@@ -230,7 +225,6 @@ function startGame() {
   createCanvas();
   animate();
   canvas.addEventListener('mousemove', (e) => {
-    console.log(e.clientX);
     playerMoved = true;
     // Compensate for canvas being centered
     paddleBottomX = e.clientX - canvasPosition - paddleDiff;
